@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightBackground,
+      backgroundColor: whiteBackground,
       body: LayoutBuilder(
         builder: (context, constraints) {
           // if(constraints.widthConstraints())
@@ -46,52 +46,56 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight)),
             child: Container(
               margin: const EdgeInsets.only(left: 200),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Power Monitor",
-                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-                  ),
-                  Card(
-                    elevation: 1,
-                    child: Container(
-                      height: 350,
-                      width: 400,
-                      padding: const EdgeInsets.all(40),
-                      child: Column(
-                        children: [
-                          textField(
-                              label: "Username",
-                              onSubmit: () {},
-                              controller: username),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          textField(
-                              label: "Password",
-                              onSubmit: () {},
-                              controller: password),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          button(
-                            label: 'Login',
-                            color: greenBackground,
-                            onPressed: () {
-                              print("Login Button Clicked");
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeScreen(),
-                                  ));
-                            },
-                          )
-                        ],
+              child: Card(
+                elevation: 1,
+                child: Container(
+                  height: 550,
+                  width: 400,
+                  padding: const EdgeInsets.all(40),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          "Power Monitor",
+                          style: TextStyle(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      textField(
+                          isPassword: false,
+                          label: "Username",
+                          onSubmit: () {},
+                          controller: username),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      textField(
+                          isPassword: true,
+                          label: "Password",
+                          onSubmit: () {},
+                          controller: password),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      button(
+                        label: 'Login',
+                        color: greenBackground,
+                        onPressed: () {
+                          print("Login Button Clicked");
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
+                              ));
+                        },
+                      )
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           );

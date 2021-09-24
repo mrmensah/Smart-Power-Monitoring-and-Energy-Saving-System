@@ -97,6 +97,8 @@ class _SideMenuState extends State<SideMenu> {
           ),
           cardSelects(
               label: "Logout",
+              textColor: whiteBackground,
+              color: greenBackground,
               destination: () {
                 Navigator.pushReplacement(
                     context,
@@ -104,7 +106,10 @@ class _SideMenuState extends State<SideMenu> {
                       builder: (context) => LoginScreen(),
                     ));
               },
-              icon: Icon(Icons.exit_to_app),
+              icon: Icon(
+                Icons.exit_to_app,
+                color: whiteBackground,
+              ),
               isSelected: false)
         ],
       ),
@@ -159,16 +164,22 @@ Widget cardSelects(
     {required String label,
     required VoidCallback destination,
     required Widget? icon,
-    required bool isSelected}) {
+    required bool isSelected,
+    Color textColor = Colors.black,
+    Color color = whiteBackground}) {
   return InkWell(
     onTap: destination,
     child: Card(
+      color: color,
       child: Container(
         width: 280,
         height: 50,
         child: ListTile(
           leading: icon,
-          title: Text(label),
+          title: Text(
+            label,
+            style: TextStyle(color: textColor),
+          ),
           trailing: isSelected
               ? Container(
                   height: 15,

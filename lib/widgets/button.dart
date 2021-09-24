@@ -6,7 +6,8 @@ Widget button(
     required Color color}) {
   return ElevatedButton(
     child: Container(
-        width: 150,
+        width: 280,
+        height: 50,
         padding: const EdgeInsets.all(10),
         alignment: Alignment.center,
         child: Text(
