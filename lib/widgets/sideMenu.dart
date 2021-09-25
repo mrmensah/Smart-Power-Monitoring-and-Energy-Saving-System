@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:keep/gloabl_variables.dart';
+import 'package:keep/providers/switchComponent.dart';
 import 'package:keep/screens/login.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -14,105 +16,236 @@ class _SideMenuState extends State<SideMenu> {
   List<bool> selected = [true, false, false, false, false];
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: 300,
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: lightBackground, borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                title(),
-                SizedBox(
-                  height: 10,
-                ),
-                profilePicture(),
-                SizedBox(
-                  height: 30,
-                ),
-                cardSelects(
-                  isSelected: selected[0],
-                  icon: Icon(LineIcons.home),
-                  label: 'Dashboard',
-                  destination: () {
-                    setState(() {
-                      selected = [true, false, false, false, false];
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                cardSelects(
-                    label: 'Cost',
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.heightConstraints().maxHeight < 700) {
+          return Container(
+            height: MediaQuery.of(context).size.height,
+            width: 300,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: lightBackground,
+                borderRadius: BorderRadius.circular(10)),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  title(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  profilePicture(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  cardSelects(
+                    isSelected: selected[0],
+                    icon: Icon(LineIcons.home),
+                    label: 'Dashboard',
                     destination: () {
                       setState(() {
-                        selected = [false, true, false, false, false];
+                        selected = [true, false, false, false, false];
+                        Provider.of<SwitchComponentProvider>(context,
+                                listen: false)
+                            .compoentNumber(0);
                       });
                     },
-                    icon: Icon(LineIcons.moneyBill),
-                    isSelected: selected[1]),
-                SizedBox(
-                  height: 10,
-                ),
-                cardSelects(
-                    label: 'Appliances',
-                    destination: () {
-                      setState(() {
-                        selected = [false, false, true, false, false];
-                      });
-                    },
-                    icon: Icon(LineIcons.lightbulb),
-                    isSelected: selected[2]),
-                SizedBox(
-                  height: 10,
-                ),
-                cardSelects(
-                    label: 'Groups',
-                    destination: () {
-                      setState(() {
-                        selected = [false, false, false, true, false];
-                      });
-                    },
-                    icon: Icon(LineIcons.gripHorizontal),
-                    isSelected: selected[3]),
-                SizedBox(
-                  height: 10,
-                ),
-                cardSelects(
-                    label: 'Settings',
-                    destination: () {
-                      setState(() {
-                        selected = [false, false, false, false, true];
-                      });
-                    },
-                    icon: Icon(Icons.settings),
-                    isSelected: selected[4])
-              ],
-            ),
-          ),
-          cardSelects(
-              label: "Logout",
-              textColor: whiteBackground,
-              color: greenBackground,
-              destination: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginScreen(),
-                    ));
-              },
-              icon: Icon(
-                Icons.exit_to_app,
-                color: whiteBackground,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Cost',
+                      destination: () {
+                        setState(() {
+                          selected = [false, true, false, false, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(1);
+                        });
+                      },
+                      icon: Icon(LineIcons.moneyBill),
+                      isSelected: selected[1]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Appliances',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, true, false, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(2);
+                        });
+                      },
+                      icon: Icon(LineIcons.lightbulb),
+                      isSelected: selected[2]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Groups',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, false, true, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(3);
+                        });
+                      },
+                      icon: Icon(LineIcons.gripHorizontal),
+                      isSelected: selected[3]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Settings',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, false, false, true];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(4);
+                        });
+                      },
+                      icon: Icon(Icons.settings),
+                      isSelected: selected[4]),
+                  cardSelects(
+                      label: "Logout",
+                      textColor: whiteBackground,
+                      color: greenBackground,
+                      destination: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
+                            ));
+                      },
+                      icon: Icon(
+                        Icons.exit_to_app,
+                        color: whiteBackground,
+                      ),
+                      isSelected: false)
+                ],
               ),
-              isSelected: false)
-        ],
-      ),
+            ),
+          );
+        }
+
+        return Container(
+          height: MediaQuery.of(context).size.height,
+          width: 300,
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: lightBackground, borderRadius: BorderRadius.circular(10)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  title(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  profilePicture(),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  cardSelects(
+                    isSelected: selected[0],
+                    icon: Icon(LineIcons.home),
+                    label: 'Dashboard',
+                    destination: () {
+                      setState(() {
+                        selected = [true, false, false, false, false];
+                        Provider.of<SwitchComponentProvider>(context,
+                                listen: false)
+                            .compoentNumber(0);
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Cost',
+                      destination: () {
+                        setState(() {
+                          selected = [false, true, false, false, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(1);
+                        });
+                      },
+                      icon: Icon(LineIcons.moneyBill),
+                      isSelected: selected[1]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Appliances',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, true, false, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(2);
+                        });
+                      },
+                      icon: Icon(LineIcons.lightbulb),
+                      isSelected: selected[2]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Groups',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, false, true, false];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(3);
+                        });
+                      },
+                      icon: Icon(LineIcons.gripHorizontal),
+                      isSelected: selected[3]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  cardSelects(
+                      label: 'Settings',
+                      destination: () {
+                        setState(() {
+                          selected = [false, false, false, false, true];
+                          Provider.of<SwitchComponentProvider>(context,
+                                  listen: false)
+                              .compoentNumber(4);
+                        });
+                      },
+                      icon: Icon(Icons.settings),
+                      isSelected: selected[4])
+                ],
+              ),
+              cardSelects(
+                  label: "Logout",
+                  textColor: whiteBackground,
+                  color: greenBackground,
+                  destination: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                  },
+                  icon: Icon(
+                    Icons.exit_to_app,
+                    color: whiteBackground,
+                  ),
+                  isSelected: false)
+            ],
+          ),
+        );
+      },
     );
   }
 }
