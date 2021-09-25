@@ -54,7 +54,7 @@ class _SideMenuState extends State<SideMenu> {
                     height: 10,
                   ),
                   cardSelects(
-                      label: 'Cost',
+                      label: 'New Device',
                       destination: () {
                         setState(() {
                           selected = [false, true, false, false, false];
@@ -63,7 +63,7 @@ class _SideMenuState extends State<SideMenu> {
                               .compoentNumber(1);
                         });
                       },
-                      icon: Icon(LineIcons.moneyBill),
+                      icon: Icon(Icons.new_releases),
                       isSelected: selected[1]),
                   SizedBox(
                     height: 10,

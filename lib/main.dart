@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          textTheme: TextTheme(headline6: GoogleFonts.poppins())),
+          textTheme: TextTheme(headline6: GoogleFonts.montserrat())),
       home: LaunchScreen(),
     );
   }
