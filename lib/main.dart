@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keep/providers/switchChart.dart';
 import 'package:keep/providers/switchComponent.dart';
 import 'package:keep/screens/launchingScreen.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,9 @@ void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => SwitchComponentProvider(),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => SwitchChart(),
     )
   ], child: MyApp()));
 }

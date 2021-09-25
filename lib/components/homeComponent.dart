@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:keep/gloabl_variables.dart';
-import 'package:keep/widgets/chartWidget.dart';
+import 'package:keep/providers/switchChart.dart';
+import 'package:keep/widgets/activeApplianceWidget.dart';
+import 'package:keep/widgets/chartMonthWidget.dart';
+import 'package:keep/widgets/chartWeekWidget.dart';
+import 'package:keep/widgets/chartYearWidget.dart';
+import 'package:keep/widgets/powerEstimate.dart';
+import 'package:provider/provider.dart';
 
 String? val = "7";
 
@@ -14,6 +20,7 @@ class HomeComponent extends StatefulWidget {
 class _HomeComponentState extends State<HomeComponent> {
   @override
   Widget build(BuildContext context) {
+    var state = Provider.of<SwitchChart>(context).returnChartState;
     return Expanded(
         child: Container(
             margin: const EdgeInsets.all(10),
@@ -55,10 +62,14 @@ class _HomeComponentState extends State<HomeComponent> {
                                       dropdownColor: greenBackground,
                                       style: TextStyle(color: whiteBackground),
                                       value: val,
-                                      onChanged: (value) {
+                                      onChanged: (String? value) {
                                         setState(() {
-                                          val = value as String?;
+                                          val = value;
                                         });
+                                        // this is used to change the state of the chart
+                                        Provider.of<SwitchChart>(context,
+                                                listen: false)
+                                            .change(int.parse(value!));
                                       },
                                       items: [
                                         DropdownMenuItem(
@@ -87,12 +98,59 @@ class _HomeComponentState extends State<HomeComponent> {
                 Expanded(
                   flex: 3,
                   child: Container(
-                    child: BarChartSample2(),
+                    child: state == 7
+                        ? BarChartSample2()
+                        : state == 30
+                            ? ChartMonth()
+                            : ChartYear(),
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    color: Colors.black,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 3,
+                          child: Card(
+                            elevation: 0.5,
+                            child: ActiveAppliance(
+                              key: Key(DateTime.now().toString()),
+                            ),
+                          )),
+                      Expanded(
+                          flex: 3,
+                          child: Card(
+                            child: PowerEstimate(),
+                          )),
+                      Expanded(
+                          flex: 3,
+                          child: Card(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Cost",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: greenBackground),
+                                  ),
+                                  Text(
+                                    "GH¢ 100.12",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25),
+                                  ),
+                                ],
+                              ),
+                              margin: const EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                  // color: Colors.green,
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ))
+                    ],
                   ),
                   flex: 3,
                 )
