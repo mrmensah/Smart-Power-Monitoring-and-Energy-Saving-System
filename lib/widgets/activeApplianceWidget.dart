@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:keep/gloabl_variables.dart';
+import 'package:keep/providers/activeProvider.dart';
 import 'package:keep/widgets/appliaceCard.dart';
+import 'package:provider/provider.dart';
 
 class ActiveAppliance extends StatelessWidget {
   const ActiveAppliance({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<DeviceModel> devices =
+        Provider.of<ActiveDeviceProvider>(context).activeDevices;
     return Container(
       color: whiteBackground,
       child: Column(
@@ -20,31 +24,14 @@ class ActiveAppliance extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: [
-                appliaceCard(
-                    context: context,
-                    appliance: "Light",
-                    kwh: 12,
-                    active: true),
-                appliaceCard(
-                    context: context,
-                    appliance: "Television",
-                    kwh: 5,
-                    active: false),
-                appliaceCard(
-                    context: context,
-                    appliance: "Fridge",
-                    kwh: 8,
-                    active: true),
-                appliaceCard(
-                    context: context,
-                    appliance: "Electric Fence",
-                    kwh: 10,
-                    active: false),
-              ],
-            ),
-          )
+              // Use provider to render these widgets
+              child: ListView.builder(
+            itemCount: devices.length,
+            itemBuilder: (context, index) => appliaceCard(
+                context: context,
+                appliance: devices[index].name,
+                active: devices[index].active),
+          ))
         ],
       ),
     );
