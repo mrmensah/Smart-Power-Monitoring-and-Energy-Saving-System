@@ -50,6 +50,7 @@ class ActiveDeviceProvider with ChangeNotifier {
             .active;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         width: 200,
+        elevation: 10,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: black,

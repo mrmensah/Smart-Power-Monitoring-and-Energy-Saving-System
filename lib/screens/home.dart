@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keep/components/applianceComponent.dart';
-import 'package:keep/components/costComponent.dart';
+import 'package:keep/components/registrationComponent.dart';
 import 'package:keep/components/groupsComponent.dart';
 import 'package:keep/components/homeComponent.dart';
 import 'package:keep/components/settingComponent.dart';
@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final List<Widget> components = [
       HomeComponent(),
-      costComponent(context),
+      RegisterComponent(),
       applianceComponent(context),
       groupComponent(context),
       settingComponent(context)

@@ -12,8 +12,9 @@ class SideMenu extends StatefulWidget {
   _SideMenuState createState() => _SideMenuState();
 }
 
+List<bool> selected = [true, false, false, false, false];
+
 class _SideMenuState extends State<SideMenu> {
-  List<bool> selected = [true, false, false, false, false];
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -54,7 +55,7 @@ class _SideMenuState extends State<SideMenu> {
                     height: 10,
                   ),
                   cardSelects(
-                      label: 'New Device',
+                      label: 'Register Device',
                       destination: () {
                         setState(() {
                           selected = [false, true, false, false, false];
@@ -63,9 +64,10 @@ class _SideMenuState extends State<SideMenu> {
                               .compoentNumber(1);
                         });
                       },
-                      icon: Icon(
-                        Icons.new_releases,
-                        color: black,
+                      icon: Image.asset(
+                        'assets/img/new.png',
+                        height: 25,
+                        width: 25,
                       ),
                       isSelected: selected[1]),
                   SizedBox(
@@ -171,7 +173,7 @@ class _SideMenuState extends State<SideMenu> {
                     height: 10,
                   ),
                   cardSelects(
-                      label: 'New Device',
+                      label: 'Register Device',
                       destination: () {
                         setState(() {
                           selected = [false, true, false, false, false];
@@ -180,11 +182,11 @@ class _SideMenuState extends State<SideMenu> {
                               .compoentNumber(1);
                         });
                       },
-                      icon: Icon(
-                        Icons.new_releases,
-                        color: black,
+                      icon: Image.asset(
+                        'assets/img/new.png',
+                        height: 25,
+                        width: 25,
                       ),
-                      // icon: Icon(LineIcons.moneyBill),
                       isSelected: selected[1]),
                   SizedBox(
                     height: 10,
