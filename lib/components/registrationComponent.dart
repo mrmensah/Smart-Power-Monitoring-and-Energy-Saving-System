@@ -3,7 +3,6 @@ import 'package:keep/gloabl_variables.dart';
 import 'package:keep/providers/switchComponent.dart';
 import 'package:keep/widgets/button.dart';
 import 'package:keep/widgets/sideMenu.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 late TextEditingController uid;
