@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,9 +8,9 @@ import 'package:keep/providers/switchChart.dart';
 import 'package:keep/providers/switchComponent.dart';
 import 'package:keep/screens/launchingScreen.dart';
 import 'package:provider/provider.dart';
-// import 'package:keep/screens/login.dart'
+import 'package:desktop_window/desktop_window.dart';
 
-void main() {
+void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   runApp(MultiProvider(providers: [
@@ -22,6 +24,10 @@ void main() {
       create: (context) => ActiveDeviceProvider(),
     )
   ], child: MyApp()));
+  if (Platform.isMacOS || Platform.isLinux || Platform.isWindows) {
+    await DesktopWindow.toggleFullScreen();
+    await DesktopWindow.setMinWindowSize(Size(800, 400));
+  }
 }
 
 class MyApp extends StatelessWidget {

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keep/gloabl_variables.dart';
+import 'package:keep/providers/activeProvider.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 
 Widget appliaceCard(
     {required BuildContext context,
     required String appliance,
+    required lastvoltage,
+    required lastcurrent,
     required bool active,
+    required uid,
     double kwh = 0}) {
   return Padding(
     padding: const EdgeInsets.all(1),
@@ -35,7 +40,7 @@ Widget appliaceCard(
                         color: whiteBackground,
                         fontSize: 18),
                   ),
-                  customToggleSwitch(active: active)
+                  customToggleSwitch(active: active, context: context, uid: uid)
                 ],
               ),
             ),
@@ -69,7 +74,7 @@ Widget appliaceCard(
                     children: [
                       Icon(LineIcons.lightningBolt),
                       Text(
-                        "225.2V",
+                        "$lastvoltage V",
                         style: TextStyle(),
                       ),
                     ],
@@ -78,7 +83,7 @@ Widget appliaceCard(
                     children: [
                       Icon(Icons.bolt_outlined),
                       Text(
-                        "2.2A",
+                        "$lastcurrent A",
                         style: TextStyle(),
                       ),
                     ],
@@ -93,60 +98,71 @@ Widget appliaceCard(
   );
 }
 
-Widget customToggleSwitch({required bool active}) {
-  return Container(
-    height: 30,
-    width: 60,
-    decoration: BoxDecoration(
-        color: whiteBackground, borderRadius: BorderRadius.circular(5)),
-    child: active
-        ? Row(
-            // This is for the active state
-            children: [
-              Container(
-                height: 30,
-                width: 30,
-                alignment: Alignment.center,
-                child: Text(
-                  'On'.toUpperCase(),
-                  style: TextStyle(
-                      color: black, fontSize: 12, fontWeight: FontWeight.bold),
+Widget customToggleSwitch(
+    {required bool active,
+    required BuildContext context,
+    required String uid}) {
+  return InkWell(
+    onTap: () => Provider.of<ActiveDeviceProvider>(context, listen: false)
+        .changeState(uid: uid, context: context),
+    child: Container(
+      height: 30,
+      width: 60,
+      decoration: BoxDecoration(
+          color: whiteBackground, borderRadius: BorderRadius.circular(5)),
+      child: active
+          ? Row(
+              // This is for the active state
+              children: [
+                Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomLeft: Radius.circular(5)),
+                    color: greenBackground,
+                  ),
+                )),
+                Container(
+                  height: 30,
+                  width: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'On'.toUpperCase(),
+                    style: TextStyle(
+                        color: black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(5),
-                      bottomRight: Radius.circular(5)),
-                  color: greenBackground,
+              ],
+            )
+          : Row(
+              // this is for the inactive state
+              children: [
+                Container(
+                  height: 30,
+                  width: 30,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Off'.toUpperCase(),
+                    style: TextStyle(
+                        color: black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ))
-            ],
-          )
-        : Row(
-            // this is for the inactive state
-            children: [
-              Expanded(
-                  child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      bottomLeft: Radius.circular(5)),
-                  color: Colors.red,
-                ),
-              )),
-              Container(
-                height: 30,
-                width: 30,
-                alignment: Alignment.center,
-                child: Text(
-                  'Off'.toUpperCase(),
-                  style: TextStyle(
-                      color: black, fontSize: 12, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
+                Expanded(
+                    child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(5),
+                        bottomRight: Radius.circular(5)),
+                    color: Colors.red,
+                  ),
+                )),
+              ],
+            ),
+    ),
   );
 }
